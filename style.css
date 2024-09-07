@@ -1,0 +1,42 @@
+body {
+  margin: 0;
+  background-color: darkgray;
+}
+
+#start-game-btn{
+  background-image:url("./img/startBtn.png");
+  color: transparent;
+  padding: 20px;
+  font-size: 25px;
+  margin-top: 40px;
+  border-radius: 10px;
+  background-position: center;
+background-size: cover;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 50px;
+}
+#game-box {
+  background-color: darkgray;
+  width:775px;
+  height:800px;
+
+  position: relative; 
+  overflow: hidden; 
+  user-select: none; 
+background-image: url("./img/background-1_0.png");
+background-position: center;
+background-size: cover;
+
+}
+#game-box * {
+  pointer-events: none; /* previene que todos los elementos del game-box sean arrastrados al clickar sobre ellos */
+}
+#game-screen, #game-over-screen {
+  display: none;
+}
