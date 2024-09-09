@@ -12,19 +12,34 @@ const startBtnNode = document.querySelector("#start-game-btn");
 const gameBoxNode = document.querySelector("#game-box");
 
 //! VARIABLES GLOBALES DEL JUEGO
+
+//MAIN CAR
 let mainCar = null;
+let gameIntervalId = null;
+
+//ENEMY CAR
 let enemyCarArray = [];
 let frecuenciaEnemyCar = 2500;
-let gameIntervalId = null;
 let enemyCarIntervalId = null;
+
+//MAINSTREAMER
 let mainstreamArray = [];
 let mainstreamIntervalId = null;
 let frecuenciaMainstream = 1000;
+
+//HIPPIES
+
+let hippiesArray = [];
+let frecuenciaHippies = 1000;
+let hippiesIntervalId = null;
+
+
 
 
 
 
 //!FUNCIONES GLOBALES DEL JUEGO
+
 function startGame() {
   //1.- CAMBIAR LAS PANTALLAS
 
@@ -48,6 +63,9 @@ function startGame() {
       addMainstream()
     }, frecuenciaMainstream)
     
+    HippiesIntervalId = setInterval(() =>{
+      addHippies()
+    }, frecuenciaHippies)
  
     
 
@@ -72,6 +90,26 @@ function addMainstream(){
 
   let newMainstream = new Mainstream (randomPositionY)
   mainstreamArray.push(newMainstream)
+}
+function addHippies(){
+  let randomPositionY = Math.floor(Math.random() *(600) )
+  console.log(randomPositionY)
+  let newHippies = new Hippies (randomPositionY)
+  hippiesArray.push(newHippies)
+}
+function detectIfHippiesLeave(){
+
+  if(hippiesArray.length === 0){
+    return // no ejecutar la funcion si el array esta vacío
+  }
+  
+
+  if((hippiesArray[0].x + hippiesArray[0].w) >= gameBoxNode.offsetWidth){
+    hippiesArray[0].node.remove() // 1.-sacar del DOM
+    hippiesArray.shift() // 2.- sacarlo de JS
+    
+  
+}
 }
 function detectIfCarEnemyLeave(){
 
@@ -121,14 +159,37 @@ function detectCarCrashMainstream(){
       },300)
       
     }
-    // Collision detected!
+   
     
   }) 
   
   
   
-  }
+}
+function detectCarCrashHippies(){
+  
 
+
+  hippiesArray.forEach((eachHippie) =>{
+    
+  
+  if (mainCar.x < eachHippie.x + eachHippie.w &&
+    mainCar.x + eachHippie.w > eachHippie.x &&
+    mainCar.y < eachHippie.y + eachHippie.h &&
+    mainCar.y + eachHippie.h > eachHippie.y) {
+      eachHippie.node.src = "./img/sangre.png"
+     
+      setTimeout(()=>{
+
+        eachHippie.node.style.display = "none"
+        
+      },300)
+      
+    }
+   
+    
+  }) 
+}
 function gameLoop(){
   // se ejecuta 60 veces por segundo en el intervalo principal
   enemyCarArray.forEach((eachEnemyCar) =>{
@@ -137,17 +198,24 @@ function gameLoop(){
   mainstreamArray.forEach((eachMainstream) =>{
     eachMainstream.automaticMovement()
   })
+  hippiesArray.forEach((eachHippie) =>{
+    eachHippie.automaticMovement()
+  })
+
   detectIfCarEnemyLeave()
   detectCarCrashEnemyCar()
   detectIfMainstreamLeave()
   detectCarCrashMainstream()
-  
+  detectIfHippiesLeave()
+  detectCarCrashHippies()
 }
 function gameOver(){
 
   //1. limpiar los intervalos
 clearInterval(gameIntervalId);
 clearInterval(enemyCarIntervalId);
+clearInterval(HippiesIntervalId)
+clearInterval(mainstreamIntervalId)
 
   gameScreenNode.style.display = "none"
   gameOverScreenNode.style.display ="flex"
@@ -174,6 +242,10 @@ if (mainCar.x < eachCarEnemy.x + eachCarEnemy.w &&
 
 
 }
+
+
+
+
 //!EVENT LISTENERS
 
 startBtnNode.addEventListener("click", startGame);
@@ -192,12 +264,12 @@ window.addEventListener("keydown", (event) => {
 //! PLANIFICACION
 
 //Crear la clase del coche CHECK!
-//Crear la clase de los mainstreamers
+//Crear la clase de los mainstreamers CHECK!
 //Crear la clase de los perroflautas
 //Crear la clase del coche rival CHECK!
 
-//los mainstream y perroflautas aparecen de manera random
-//los mainstream y perroflautas deben desaparecer (dejar de exisitir en js, dejar de exisitir en el DOM)
+//los mainstream y hippies aparecen de manera random
+//los mainstream y hippies deben desaparecer (dejar de exisitir en js, dejar de exisitir en el DOM) CHECK!
 
 //los coches rivales aparecen de manera random CHECK!
 //los coches deben desaparecer (dejar de exisitir en js, dejar de exisitir en el DOM) CHECK!

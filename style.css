@@ -1,6 +1,6 @@
 body {
   margin: 0;
-  background-color: darkgray;
+  background-color: darkslategrey;
 }
 
 #start-game-btn{
@@ -22,12 +22,12 @@ background-size: cover;
   margin: 50px;
 }
 #game-box {
-  background-color: darkgray;
+  background-color: black;
   width:775px;
   height:800px;
 
   position: relative; 
-  overflow: hidden; 
+ /* overflow: hidden; */
   user-select: none; 
 background-image: url("./img/background-1_0.png");
 background-position: center;
