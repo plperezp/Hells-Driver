@@ -12,6 +12,9 @@ const startBtnNode = document.querySelector("#start-game-btn");
 const gameBoxNode = document.querySelector("#game-box");
 
 //! VARIABLES GLOBALES DEL JUEGO
+let score = 0;
+scoreNode = document.querySelector(".score");
+finalScoreNode = document.querySelector("#final-score")
 
 //MAIN CAR
 let mainCar = null;
@@ -33,11 +36,6 @@ let hippiesArray = [];
 let frecuenciaHippies = 1000;
 let hippiesIntervalId = null;
 
-
-
-
-
-
 //!FUNCIONES GLOBALES DEL JUEGO
 
 function startGame() {
@@ -51,200 +49,171 @@ function startGame() {
   mainCar = new MainCar();
 
   //3 INTERVALOS DE JUEGO
-  
-  gameIntervalId = setInterval(() =>{
-    gameLoop()
-    },Math.round(1000/60)) //60fps
-    enemyCarIntervalId = setInterval (() => {
-      addEnemyCar()
-      }, frecuenciaEnemyCar)
-    
-    mainstreamIntervalId = setInterval(() =>{
-      addMainstream()
-    }, frecuenciaMainstream)
-    
-    HippiesIntervalId = setInterval(() =>{
-      addHippies()
-    }, frecuenciaHippies)
- 
-    
 
+  gameIntervalId = setInterval(() => {
+    gameLoop();
+  }, Math.round(1000 / 60)); //60fps
+  enemyCarIntervalId = setInterval(() => {
+    addEnemyCar();
+  }, frecuenciaEnemyCar);
 
+  mainstreamIntervalId = setInterval(() => {
+    addMainstream();
+  }, frecuenciaMainstream);
+
+  HippiesIntervalId = setInterval(() => {
+    addHippies();
+  }, frecuenciaHippies);
 }
-function addEnemyCar(){
-  let randomPositionX = Math.floor(Math.random() *(320) )
+function addEnemyCar() {
+  let randomPositionX = Math.floor(Math.random() * 320);
 
-  let newEnemyCarLeft = new EnemyCar (randomPositionX)
-  enemyCarArray.push(newEnemyCarLeft)
-    
- let newEnemyCarRight = new EnemyCar (randomPositionX + 400)
- enemyCarArray.push(newEnemyCarRight)
-    
-    
-    console.log(enemyCarArray)
+  let newEnemyCarLeft = new EnemyCar(randomPositionX);
+  enemyCarArray.push(newEnemyCarLeft);
 
+  let newEnemyCarRight = new EnemyCar(randomPositionX + 400);
+  enemyCarArray.push(newEnemyCarRight);
 
+  console.log(enemyCarArray);
 }
-function addMainstream(){
-  let randomPositionY = Math.floor(Math.random() *(250) )
+function addMainstream() {
+  let randomPositionY = Math.floor(Math.random() * 250);
 
-  let newMainstream = new Mainstream (randomPositionY)
-  mainstreamArray.push(newMainstream)
+  let newMainstream = new Mainstream(randomPositionY);
+  mainstreamArray.push(newMainstream);
 }
-function addHippies(){
-  let randomPositionY = Math.floor(Math.random() *(600) )
-  console.log(randomPositionY)
-  let newHippies = new Hippies (randomPositionY)
-  hippiesArray.push(newHippies)
+function addHippies() {
+  let randomPositionY = Math.floor(Math.random() * 600);
+  console.log(randomPositionY);
+  let newHippies = new Hippies(randomPositionY);
+  hippiesArray.push(newHippies);
 }
-function detectIfHippiesLeave(){
-
-  if(hippiesArray.length === 0){
-    return // no ejecutar la funcion si el array esta vacío
-  }
-  
-
-  if((hippiesArray[0].x + hippiesArray[0].w) >= gameBoxNode.offsetWidth){
-    hippiesArray[0].node.remove() // 1.-sacar del DOM
-    hippiesArray.shift() // 2.- sacarlo de JS
-    
-  
-}
-}
-function detectIfCarEnemyLeave(){
-
-  if(enemyCarArray.length === 0){
-    return // no ejecutar la funcion si el array esta vacío
-  }
-  
-
-  if((enemyCarArray[0].y + enemyCarArray[0].h) >= gameBoxNode.offSetHeight){
-    enemyCarArray[0].node.remove() // 1.-sacar del DOM
-    enemyCarArray.shift() // 2.- sacarlo de JS
-    
-  
-}
-}
-
-function detectIfMainstreamLeave(){
-
-  if(mainstreamArray.length === 0){
-    return 
+function detectIfHippiesLeave() {
+  if (hippiesArray.length === 0) {
+    return; // no ejecutar la funcion si el array esta vacío
   }
 
-  if((mainstreamArray[0].x + mainstreamArray[0].w)<= 0){
-    mainstreamArray[0].node.remove() // 1.-sacar del DOM
-    mainstreamArray.shift() // 2.- sacarlo de JS
-    
+  if (hippiesArray[0].x + hippiesArray[0].w >= gameBoxNode.offsetWidth) {
+    hippiesArray[0].node.remove(); // 1.-sacar del DOM
+    hippiesArray.shift(); // 2.- sacarlo de JS
+  }
+}
+function detectIfCarEnemyLeave() {
+  if (enemyCarArray.length === 0) {
+    return; // no ejecutar la funcion si el array esta vacío
+  }
+
+  if (enemyCarArray[0].y + enemyCarArray[0].h >= gameBoxNode.offSetHeight) {
+    enemyCarArray[0].node.remove(); // 1.-sacar del DOM
+    enemyCarArray.shift(); // 2.- sacarlo de JS
   }
 }
 
-function detectCarCrashMainstream(){
-  
+function detectIfMainstreamLeave() {
+  if (mainstreamArray.length === 0) {
+    return;
+  }
 
+  if (mainstreamArray[0].x + mainstreamArray[0].w <= 0) {
+    mainstreamArray[0].node.remove(); // 1.-sacar del DOM
+    mainstreamArray.shift(); // 2.- sacarlo de JS
+  }
+}
 
-  mainstreamArray.forEach((eachMainstream) =>{
-    
-  
-  if (mainCar.x < eachMainstream.x + eachMainstream.w &&
-    mainCar.x + eachMainstream.w > eachMainstream.x &&
-    mainCar.y < eachMainstream.y + eachMainstream.h &&
-    mainCar.y + eachMainstream.h > eachMainstream.y) {
-      eachMainstream.node.src = "./img/sangre.png"
-     
-      setTimeout(()=>{
+function detectCarCrashMainstream() {
+  mainstreamArray.forEach((eachMainstream) => {
 
-        eachMainstream.node.style.display = "none"
-        
-      },300)
-      
+    if(eachMainstream.isScored){
+      return
     }
-   
-    
-  }) 
-  
-  
-  
-}
-function detectCarCrashHippies(){
-  
 
 
-  hippiesArray.forEach((eachHippie) =>{
-    
-  
-  if (mainCar.x < eachHippie.x + eachHippie.w &&
-    mainCar.x + eachHippie.w > eachHippie.x &&
-    mainCar.y < eachHippie.y + eachHippie.h &&
-    mainCar.y + eachHippie.h > eachHippie.y) {
-      eachHippie.node.src = "./img/sangre.png"
-     
-      setTimeout(()=>{
+    if (
+      mainCar.x < eachMainstream.x + eachMainstream.w &&
+      mainCar.x + eachMainstream.w > eachMainstream.x &&
+      mainCar.y < eachMainstream.y + eachMainstream.h &&
+      mainCar.y + eachMainstream.h > eachMainstream.y
+    ) {
+      eachMainstream.node.src = "./img/sangre.png";
+      eachMainstream.isScored = true;
+      score += 50;
+      scoreNode.innerText = `Score: ${score}`
 
-        eachHippie.node.style.display = "none"
-        
-      },300)
-      
+      setTimeout(() => {
+        eachMainstream.node.style.display = "none";
+      }, 300);
     }
-   
-    
-  }) 
+  });
 }
-function gameLoop(){
+function detectCarCrashHippies() {
+  hippiesArray.forEach((eachHippie) => {
+
+    if(eachHippie.isScored){
+      return
+    }
+
+    if (
+      mainCar.x < eachHippie.x + eachHippie.w &&
+      mainCar.x + eachHippie.w > eachHippie.x &&
+      mainCar.y < eachHippie.y + eachHippie.h &&
+      mainCar.y + eachHippie.h > eachHippie.y
+    ) {
+      eachHippie.node.src = "./img/sangre.png";
+      eachHippie.isScored = true;
+      score += 75;
+      scoreNode.innerText = `Score: ${score}`
+      setTimeout(() => {
+        eachHippie.node.style.display = "none";
+      }, 300);
+    }
+  });
+}
+function gameLoop() {
   // se ejecuta 60 veces por segundo en el intervalo principal
-  enemyCarArray.forEach((eachEnemyCar) =>{
-    eachEnemyCar.automaticMovement()
-  })
-  mainstreamArray.forEach((eachMainstream) =>{
-    eachMainstream.automaticMovement()
-  })
-  hippiesArray.forEach((eachHippie) =>{
-    eachHippie.automaticMovement()
-  })
+  enemyCarArray.forEach((eachEnemyCar) => {
+    eachEnemyCar.automaticMovement();
+  });
+  mainstreamArray.forEach((eachMainstream) => {
+    eachMainstream.automaticMovement();
+  });
+  hippiesArray.forEach((eachHippie) => {
+    eachHippie.automaticMovement();
+  });
 
-  detectIfCarEnemyLeave()
-  detectCarCrashEnemyCar()
-  detectIfMainstreamLeave()
-  detectCarCrashMainstream()
-  detectIfHippiesLeave()
-  detectCarCrashHippies()
+  detectIfCarEnemyLeave();
+  detectCarCrashEnemyCar();
+  detectIfMainstreamLeave();
+  detectCarCrashMainstream();
+  detectIfHippiesLeave();
+  detectCarCrashHippies();
 }
-function gameOver(){
-
+function gameOver() {
   //1. limpiar los intervalos
-clearInterval(gameIntervalId);
-clearInterval(enemyCarIntervalId);
-clearInterval(HippiesIntervalId)
-clearInterval(mainstreamIntervalId)
+  clearInterval(gameIntervalId);
+  clearInterval(enemyCarIntervalId);
+  clearInterval(HippiesIntervalId);
+  clearInterval(mainstreamIntervalId);
 
-  gameScreenNode.style.display = "none"
-  gameOverScreenNode.style.display ="flex"
+  gameScreenNode.style.display = "none";
+  gameOverScreenNode.style.display = "flex";
+  finalScoreNode.innerText = `Driver your final score was ${score}`
 }
-function detectCarCrashEnemyCar(){
-  
-
-
-enemyCarArray.forEach((eachCarEnemy) =>{
-
-if (mainCar.x < eachCarEnemy.x + eachCarEnemy.w &&
-  mainCar.x + eachCarEnemy.w > eachCarEnemy.x &&
-  mainCar.y < eachCarEnemy.y + eachCarEnemy.h &&
-  mainCar.y + eachCarEnemy.h > eachCarEnemy.y) {
-    mainCar.node.src = "./img/explosion.png"
-    setTimeout(() =>{
-      gameOver()
-    }, 300)
-  }
-  // Collision detected!
-  
-}) 
-
-
-
+function detectCarCrashEnemyCar() {
+  enemyCarArray.forEach((eachCarEnemy) => {
+    if (
+      mainCar.x < eachCarEnemy.x + eachCarEnemy.w &&
+      mainCar.x + eachCarEnemy.w > eachCarEnemy.x &&
+      mainCar.y < eachCarEnemy.y + eachCarEnemy.h &&
+      mainCar.y + eachCarEnemy.h > eachCarEnemy.y
+    ) {
+      mainCar.node.src = "./img/explosion.png";
+      setTimeout(() => {
+        gameOver();
+      }, 300);
+    }
+    // Collision detected!
+  });
 }
-
-
-
 
 //!EVENT LISTENERS
 

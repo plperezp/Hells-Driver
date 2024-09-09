@@ -6,7 +6,7 @@ class EnemyCar {
     this.y = 0;
     this.h = 70;
     this.w = 50;
-    this.speed = 2
+    this.speed = 4
 
 this.node = document.createElement("img")
 this.node.src = "./img/coche-enemigo.png"

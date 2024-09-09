@@ -5,7 +5,7 @@ class MainCar{
     this.y = 720;
     this.h = 70;
     this.w = 50;
-    this.speed = 10;
+    this.speed = 50;
 
 
     //COCHE EN EL DOM
