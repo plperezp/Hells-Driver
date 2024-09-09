@@ -2,7 +2,33 @@ body {
   margin: 0;
   background-color: darkslategrey;
 }
+h2{
+display: flex;
+  justify-content: center;
+  color: white;
+  font-family: "Pixelify Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+  text-shadow: 10px 10px 20px rgb(255, 5, 5);
+  
+}
+#game-info p{
+  width:700px;
+  text-align: center;
+  color: white;
+}
 
+#game-rules{
+  color: white;
+}
+#game-rules li{
+  color: white;
+}
+
+#booster-img{
+  width: 20px;
+  height: 20px;
+}
 #start-game-btn{
   background-image:url("./img/startBtn.png");
   color: transparent;
