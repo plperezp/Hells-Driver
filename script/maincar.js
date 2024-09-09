@@ -21,8 +21,8 @@ this.node.style.top = `${this.y}px`
 this.node.style.left = `${this.x}px`
 
 }
-//FUNCION CREADA PERO EL COCHE NO SE MUEVE
-mainCarMovent(direction) {
+
+mainCarMovement(direction) {
 if (direction === "right") {
   this.x += this.speed;
   this.node.style.left = `${this.x}px`;

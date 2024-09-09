@@ -35,7 +35,7 @@ background-size: cover;
 
 }
 #game-box * {
-  pointer-events: none; /* previene que todos los elementos del game-box sean arrastrados al clickar sobre ellos */
+  pointer-events: none; 
 }
 #game-screen, #game-over-screen {
   display: none;
