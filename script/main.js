@@ -13,10 +13,13 @@ const gameBoxNode = document.querySelector("#game-box");
 
 //! VARIABLES GLOBALES DEL JUEGO
 let mainCar = null;
-let enemyCarArray = []
-let frecuenciaEnemyCar = 2500
+let enemyCarArray = [];
+let frecuenciaEnemyCar = 2500;
 let gameIntervalId = null;
 let enemyCarIntervalId = null;
+let mainstreamArray = [];
+let mainstreamIntervalId = null;
+let frecuenciaMainstream = 1000;
 
 
 
@@ -41,6 +44,10 @@ function startGame() {
       addEnemyCar()
       }, frecuenciaEnemyCar)
     
+    mainstreamIntervalId = setInterval(() =>{
+      addMainstream()
+    }, frecuenciaMainstream)
+    
  
     
 
@@ -60,7 +67,12 @@ function addEnemyCar(){
 
 
 }
+function addMainstream(){
+  let randomPositionY = Math.floor(Math.random() *(250) )
 
+  let newMainstream = new Mainstream (randomPositionY)
+  mainstreamArray.push(newMainstream)
+}
 function detectIfCarEnemyLeave(){
 
   if(enemyCarArray.length === 0){
@@ -76,12 +88,59 @@ function detectIfCarEnemyLeave(){
 }
 }
 
+function detectIfMainstreamLeave(){
+
+  if(mainstreamArray.length === 0){
+    return 
+  }
+
+  if((mainstreamArray[0].x + mainstreamArray[0].w)<= 0){
+    mainstreamArray[0].node.remove() // 1.-sacar del DOM
+    mainstreamArray.shift() // 2.- sacarlo de JS
+    
+  }
+}
+
+function detectCarCrashMainstream(){
+  
+
+
+  mainstreamArray.forEach((eachMainstream) =>{
+    
+  
+  if (mainCar.x < eachMainstream.x + eachMainstream.w &&
+    mainCar.x + eachMainstream.w > eachMainstream.x &&
+    mainCar.y < eachMainstream.y + eachMainstream.h &&
+    mainCar.y + eachMainstream.h > eachMainstream.y) {
+      eachMainstream.node.src = "./img/sangre.png"
+     
+      setTimeout(()=>{
+
+        eachMainstream.node.style.display = "none"
+        
+      },300)
+      
+    }
+    // Collision detected!
+    
+  }) 
+  
+  
+  
+  }
+
 function gameLoop(){
   // se ejecuta 60 veces por segundo en el intervalo principal
   enemyCarArray.forEach((eachEnemyCar) =>{
     eachEnemyCar.automaticMovement()
   })
+  mainstreamArray.forEach((eachMainstream) =>{
+    eachMainstream.automaticMovement()
+  })
   detectIfCarEnemyLeave()
+  detectCarCrashEnemyCar()
+  detectIfMainstreamLeave()
+  detectCarCrashMainstream()
   
 }
 function gameOver(){
@@ -92,6 +151,28 @@ clearInterval(enemyCarIntervalId);
 
   gameScreenNode.style.display = "none"
   gameOverScreenNode.style.display ="flex"
+}
+function detectCarCrashEnemyCar(){
+  
+
+
+enemyCarArray.forEach((eachCarEnemy) =>{
+
+if (mainCar.x < eachCarEnemy.x + eachCarEnemy.w &&
+  mainCar.x + eachCarEnemy.w > eachCarEnemy.x &&
+  mainCar.y < eachCarEnemy.y + eachCarEnemy.h &&
+  mainCar.y + eachCarEnemy.h > eachCarEnemy.y) {
+    mainCar.node.src = "./img/explosion.png"
+    setTimeout(() =>{
+      gameOver()
+    }, 300)
+  }
+  // Collision detected!
+  
+}) 
+
+
+
 }
 //!EVENT LISTENERS
 
@@ -113,16 +194,16 @@ window.addEventListener("keydown", (event) => {
 //Crear la clase del coche CHECK!
 //Crear la clase de los mainstreamers
 //Crear la clase de los perroflautas
-//Crear la clase del coche rival
+//Crear la clase del coche rival CHECK!
 
 //los mainstream y perroflautas aparecen de manera random
 //los mainstream y perroflautas deben desaparecer (dejar de exisitir en js, dejar de exisitir en el DOM)
 
-//los coches rivales aparecen de manera random
-//los coches deben desaparecer (dejar de exisitir en js, dejar de exisitir en el DOM)
+//los coches rivales aparecen de manera random CHECK!
+//los coches deben desaparecer (dejar de exisitir en js, dejar de exisitir en el DOM) CHECK!
 
 //colisiones coche contra mainstreamers (aumenta score)
 //colisiones coche contra perroflautas (aumenta score)
-//colisiones coche contra coches (game-over)
+//colisiones coche contra coches (game-over) CHECK!
 
 //colision coche contra los margenes (game over)
