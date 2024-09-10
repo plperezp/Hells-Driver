@@ -1,43 +1,27 @@
 body {
   margin: 0;
-  background-color: darkslategrey;
+  background: linear-gradient(90deg, rgba(24,11,29) 0%, rgba(124,23,53) 50%, rgba(173,18,84) 75%,rgba(236,8,43) 100%);
 }
-h2{
-display: flex;
+h2 {
+  display: flex;
   justify-content: center;
   color: white;
   font-family: "Pixelify Sans", sans-serif;
   font-optical-sizing: auto;
   font-style: normal;
-  text-shadow: 10px 10px 20px rgb(255, 5, 5);
-  
+  text-shadow: 10px 10px 20px rgba(255, 5, 5, 0);
 }
-#game-info p{
-  width:700px;
+#game-info p {
+  width: 700px;
   text-align: center;
   color: white;
 }
 
-#game-rules{
+#game-rules {
   color: white;
 }
-#game-rules li{
+#game-rules li {
   color: white;
-}
-
-#booster-img{
-  width: 20px;
-  height: 20px;
-}
-#start-game-btn{
-  background-image:url("./img/startBtn.png");
-  color: transparent;
-  padding: 20px;
-  font-size: 25px;
-  margin-top: 40px;
-  border-radius: 10px;
-  background-position: center;
-background-size: cover;
 }
 
 .container {
@@ -47,22 +31,61 @@ background-size: cover;
   align-items: center;
   margin: 50px;
 }
+#score{
+  color : white;
+  font-family: "Pixelify Sans", sans-serif;
+  font-size: 35px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  padding: 0;
+  margin: 0;
+
+
+}
+
+#final-score{
+  color : white;
+  font-family: "Pixelify Sans", sans-serif;
+  font-size: 35px;
+
+}
+
+
+#booster-img {
+  width: 20px;
+  height: 20px;
+}
+#start-game-btn {
+  background-image: url("./img/startBtn.png");
+  color: transparent;
+  padding: 20px;
+  font-size: 25px;
+  margin-top: 40px;
+  border-radius: 10px;
+  background-position: center;
+  background-size: cover;
+}
+
+
+
 #game-box {
   background-color: black;
-  width:775px;
-  height:800px;
+  width: 775px;
+  height: 800px;
 
-  position: relative; 
-  overflow: hidden; 
-  user-select: none; 
-background-image: url("./img/background-1_0.png");
-background-position: center;
-background-size: cover;
-
+  position: relative;
+  overflow: hidden;
+  user-select: none;
+  background-image: url("./img/background-1_0.png");
+  background-position: center;
+  background-size: cover;
+  border: 5px solid black;
 }
 #game-box * {
-  pointer-events: none; 
+  pointer-events: none;
 }
-#game-screen, #game-over-screen {
+#game-screen,
+#game-over-screen {
   display: none;
 }

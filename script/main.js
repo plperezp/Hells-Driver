@@ -14,7 +14,7 @@ const gameBoxNode = document.querySelector("#game-box");
 //! VARIABLES GLOBALES DEL JUEGO
 let score = 0;
 scoreNode = document.querySelector(".score");
-finalScoreNode = document.querySelector("#final-score")
+finalScoreNode = document.querySelector("#final-score");
 
 //MAIN CAR
 let mainCar = null;
@@ -122,11 +122,9 @@ function detectIfMainstreamLeave() {
 
 function detectCarCrashMainstream() {
   mainstreamArray.forEach((eachMainstream) => {
-
-    if(eachMainstream.isScored){
-      return
+    if (eachMainstream.isScored) {
+      return;
     }
-
 
     if (
       mainCar.x < eachMainstream.x + eachMainstream.w &&
@@ -137,7 +135,7 @@ function detectCarCrashMainstream() {
       eachMainstream.node.src = "./img/sangre.png";
       eachMainstream.isScored = true;
       score += 50;
-      scoreNode.innerText = `Score: ${score}`
+      scoreNode.innerText = `Score: ${score}`;
 
       setTimeout(() => {
         eachMainstream.node.style.display = "none";
@@ -147,9 +145,8 @@ function detectCarCrashMainstream() {
 }
 function detectCarCrashHippies() {
   hippiesArray.forEach((eachHippie) => {
-
-    if(eachHippie.isScored){
-      return
+    if (eachHippie.isScored) {
+      return;
     }
 
     if (
@@ -161,7 +158,7 @@ function detectCarCrashHippies() {
       eachHippie.node.src = "./img/sangre.png";
       eachHippie.isScored = true;
       score += 75;
-      scoreNode.innerText = `Score: ${score}`
+      scoreNode.innerText = `Score: ${score}`;
       setTimeout(() => {
         eachHippie.node.style.display = "none";
       }, 300);
@@ -196,7 +193,7 @@ function gameOver() {
 
   gameScreenNode.style.display = "none";
   gameOverScreenNode.style.display = "flex";
-  finalScoreNode.innerText = `Driver your final score was ${score}`
+  finalScoreNode.innerText = `Driver your final score was ${score}`;
 }
 function detectCarCrashEnemyCar() {
   enemyCarArray.forEach((eachCarEnemy) => {
