@@ -1,6 +1,7 @@
 body {
   margin: 0;
   background: linear-gradient(90deg, rgba(24,11,29) 0%, rgba(124,23,53) 50%, rgba(173,18,84) 75%,rgba(236,8,43) 100%);
+  padding-top: 20px;
 }
 h2 {
   display: flex;

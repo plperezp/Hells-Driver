@@ -36,6 +36,12 @@ let hippiesArray = [];
 let frecuenciaHippies = 1000;
 let hippiesIntervalId = null;
 
+//BEERBOOSTER
+
+let BeerBoosterArray = []
+let frecuenciaBeer = 5000;
+let BeerBoosterIntervalId = null;
+
 //!FUNCIONES GLOBALES DEL JUEGO
 
 function startGame() {
@@ -64,7 +70,15 @@ function startGame() {
   HippiesIntervalId = setInterval(() => {
     addHippies();
   }, frecuenciaHippies);
+
+  BeerBoosterIntervalId = setInterval(() =>{
+    addBeerBooster()
+  },frecuenciaBeer)
+
 }
+
+//FUNCIONES ADD
+
 function addEnemyCar() {
   let randomPositionX = Math.floor(Math.random() * 320);
 
@@ -88,6 +102,14 @@ function addHippies() {
   let newHippies = new Hippies(randomPositionY);
   hippiesArray.push(newHippies);
 }
+function addBeerBooster() {
+  let randomPositionY = Math.floor(Math.random() * 650);
+  let newBeerBooster = new BeerBooster(randomPositionY);
+    BeerBoosterArray.push(newBeerBooster);
+}
+
+//FUNCIONES DETECT LEAVE
+
 function detectIfHippiesLeave() {
   if (hippiesArray.length === 0) {
     return; // no ejecutar la funcion si el array esta vacío
@@ -120,6 +142,35 @@ function detectIfMainstreamLeave() {
   }
 }
 
+function detectIfBeerBoosterLeave() {
+  if (BeerBoosterArray.length === 0) {
+    return;
+  }
+
+  if (BeerBoosterArray[0].x + BeerBoosterArray[0].w <= 0) {
+    BeerBoosterArray[0].node.remove(); // 1.-sacar del DOM
+    BeerBoosterArray.shift(); // 2.- sacarlo de JS
+  }
+}
+
+//FUNCIONES DETECT CRASH
+
+function detectCarCrashEnemyCar() {
+  enemyCarArray.forEach((eachCarEnemy) => {
+    if (
+      mainCar.x < eachCarEnemy.x + eachCarEnemy.w &&
+      mainCar.x + eachCarEnemy.w > eachCarEnemy.x &&
+      mainCar.y < eachCarEnemy.y + eachCarEnemy.h &&
+      mainCar.y + eachCarEnemy.h > eachCarEnemy.y
+    ) {
+      mainCar.node.src = "./img/explosion.png";
+      setTimeout(() => {
+        gameOver();
+      }, 300);
+    }
+    // Collision detected!
+  });
+}
 function detectCarCrashMainstream() {
   mainstreamArray.forEach((eachMainstream) => {
     if (eachMainstream.isScored) {
@@ -165,6 +216,24 @@ function detectCarCrashHippies() {
     }
   });
 }
+function detectCarCrashBeer(){
+
+  BeerBoosterArray.forEach((eachBeer) => {
+    if (
+      mainCar.x < eachBeer.x + eachBeer.w &&
+      mainCar.x + eachBeer.w > eachBeer.x &&
+      mainCar.y < eachBeer.y + eachBeer.h &&
+      mainCar.y + eachBeer.h > eachBeer.y
+    ) {
+      
+    }
+    // Collision detected!
+  });
+
+
+}
+//GAME LOOP
+
 function gameLoop() {
   // se ejecuta 60 veces por segundo en el intervalo principal
   enemyCarArray.forEach((eachEnemyCar) => {
@@ -176,14 +245,21 @@ function gameLoop() {
   hippiesArray.forEach((eachHippie) => {
     eachHippie.automaticMovement();
   });
-
+  BeerBoosterArray.forEach((eachBeer) => {
+    eachBeer.automaticMovement();
+  });
   detectIfCarEnemyLeave();
   detectCarCrashEnemyCar();
   detectIfMainstreamLeave();
   detectCarCrashMainstream();
   detectIfHippiesLeave();
   detectCarCrashHippies();
+  detectIfBeerBoosterLeave()
+  mainCar.mainCarMovement()
 }
+
+//GAME OVER
+
 function gameOver() {
   //1. limpiar los intervalos
   clearInterval(gameIntervalId);
@@ -195,37 +271,39 @@ function gameOver() {
   gameOverScreenNode.style.display = "flex";
   finalScoreNode.innerText = `Driver your final score was ${score}`;
 }
-function detectCarCrashEnemyCar() {
-  enemyCarArray.forEach((eachCarEnemy) => {
-    if (
-      mainCar.x < eachCarEnemy.x + eachCarEnemy.w &&
-      mainCar.x + eachCarEnemy.w > eachCarEnemy.x &&
-      mainCar.y < eachCarEnemy.y + eachCarEnemy.h &&
-      mainCar.y + eachCarEnemy.h > eachCarEnemy.y
-    ) {
-      mainCar.node.src = "./img/explosion.png";
-      setTimeout(() => {
-        gameOver();
-      }, 300);
-    }
-    // Collision detected!
-  });
-}
 
 //!EVENT LISTENERS
 
 startBtnNode.addEventListener("click", startGame);
 window.addEventListener("keydown", (event) => {
   if (event.key === "a") {
-    mainCar.mainCarMovement("left");
+    mainCar.keys.left = true;
+    console.log(mainCar.keys)
   } else if (event.key === "d") {
-    mainCar.mainCarMovement("right");
+    mainCar.keys.right = true;
+    console.log(mainCar.keys)
   } else if (event.key === "w") {
-    mainCar.mainCarMovement("up");
+    mainCar.keys.up = true;
+    console.log(mainCar.keys)
   } else if (event.key === "s") {
-    mainCar.mainCarMovement("down");
+    mainCar.keys.down = true;
+    console.log(mainCar.keys)
   }
 });
+
+window.addEventListener("keyup",(event) =>{
+  if (event.key === "a") {
+    mainCar.keys.left = false;
+  } else if (event.key === "d") {
+    mainCar.keys.right = false;
+  } else if (event.key === "w") {
+    mainCar.keys.up = false;
+  } else if (event.key === "s") {
+    mainCar.keys.down = false;
+  }
+
+
+})
 
 //! PLANIFICACION
 
