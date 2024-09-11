@@ -5,31 +5,30 @@ const splashScreenNode = document.querySelector("#splash-screen");
 const gameScreenNode = document.querySelector("#game-screen");
 const gameOverScreenNode = document.querySelector("#game-over-screen");
 let scoreNode = document.querySelector("#score");
-let finalScoreNode = document.querySelector("#final-score")
-let pauseAudioNode = document.querySelector("#pause-audio-btn")
-let playAudioNode = document.querySelector("#audio-btn")
+let finalScoreNode = document.querySelector("#final-score");
+let pauseAudioNode = document.querySelector("#pause-audio-btn");
+let playAudioNode = document.querySelector("#audio-btn");
 //AUDIO
 
-let audioGame = new Audio("./audio/game-music.mp3")
+let audioGame = new Audio("./audio/game-music.mp3");
 audioGame.volume = 0.1;
-let gameOverAudio = new Audio("./audio/game-over.mp3")
+let gameOverAudio = new Audio("./audio/game-over.mp3");
 gameOverAudio.volume = 0.1;
-let crashCarAudio = new Audio ("./audio/car-crash.wav")
+let crashCarAudio = new Audio("./audio/car-crash.wav");
 crashCarAudio.volume = 0.08;
-let atropelloAudio = new Audio ("./audio/atropello.mp3")
-atropelloAudio.volume= 0.08
-let beerAudio = new Audio("./audio/beer-drunk.mp3")
-beerAudio.volume= 0.5
+let atropelloAudio = new Audio("./audio/atropello.mp3");
+atropelloAudio.volume = 0.08;
+let beerAudio = new Audio("./audio/beer-drunk.mp3");
+beerAudio.volume = 0.5;
 
 // BOTONES
 const startBtnNode = document.querySelector("#start-game-btn");
-const restartBtnNode = document.querySelector("#restart-game-btn")
+const restartBtnNode = document.querySelector("#restart-game-btn");
 // GAME-BOX
 const gameBoxNode = document.querySelector("#game-box");
 
 //! VARIABLES GLOBALES DEL JUEGO
 let score = 0;
-
 
 //MAIN CAR
 let mainCar = null;
@@ -53,7 +52,7 @@ let hippiesIntervalId = null;
 
 //BEERBOOSTER
 
-let BeerBoosterArray = []
+let BeerBoosterArray = [];
 let frecuenciaBeer = 5000;
 let BeerBoosterIntervalId = null;
 
@@ -61,8 +60,8 @@ let BeerBoosterIntervalId = null;
 
 function startGame() {
   //1.- CAMBIAR LAS PANTALLAS
-  audioGame.play()
-  
+  audioGame.play();
+
   splashScreenNode.style.display = "none";
   gameScreenNode.style.display = "flex";
 
@@ -71,7 +70,7 @@ function startGame() {
   mainCar = new MainCar();
 
   //3 INTERVALOS DE JUEGO
-  
+
   gameIntervalId = setInterval(() => {
     gameLoop();
   }, Math.round(1000 / 60)); //60fps
@@ -87,10 +86,10 @@ function startGame() {
     addHippies();
   }, frecuenciaHippies);
 
-  BeerBoosterIntervalId = setInterval(() =>{
-    addBeerBooster()
-  },frecuenciaBeer)
-console.log(score)
+  BeerBoosterIntervalId = setInterval(() => {
+    addBeerBooster();
+  }, frecuenciaBeer);
+  console.log(score);
 }
 
 //FUNCIONES ADD
@@ -103,8 +102,6 @@ function addEnemyCar() {
 
   let newEnemyCarRight = new EnemyCar(randomPositionX + 400);
   enemyCarArray.push(newEnemyCarRight);
-
- 
 }
 function addMainstream() {
   let randomPositionY = Math.floor(Math.random() * 250);
@@ -114,14 +111,14 @@ function addMainstream() {
 }
 function addHippies() {
   let randomPositionY = Math.floor(Math.random() * 600);
-  
+
   let newHippies = new Hippies(randomPositionY);
   hippiesArray.push(newHippies);
 }
 function addBeerBooster() {
   let randomPositionY = Math.floor(Math.random() * 650);
   let newBeerBooster = new BeerBooster(randomPositionY);
-    BeerBoosterArray.push(newBeerBooster);
+  BeerBoosterArray.push(newBeerBooster);
 }
 
 //FUNCIONES DETECT LEAVE
@@ -180,7 +177,7 @@ function detectCarCrashEnemyCar() {
       mainCar.y + eachCarEnemy.h > eachCarEnemy.y
     ) {
       mainCar.node.src = "./img/explosion.png";
-      crashCarAudio.play()
+      crashCarAudio.play();
       setTimeout(() => {
         gameOver();
       }, 300);
@@ -201,14 +198,13 @@ function detectCarCrashMainstream() {
       mainCar.y + eachMainstream.h > eachMainstream.y
     ) {
       eachMainstream.node.src = "./img/sangre.png";
-      atropelloAudio.play()
+      atropelloAudio.play();
       eachMainstream.isScored = true;
       score += 50;
       scoreNode.innerText = `Score: ${score}`;
 
       setTimeout(() => {
         eachMainstream.node.style.display = "none";
-        
       }, 300);
     }
   });
@@ -226,22 +222,20 @@ function detectCarCrashHippies() {
       mainCar.y + eachHippie.h > eachHippie.y
     ) {
       eachHippie.node.src = "./img/sangre.png";
-      atropelloAudio.play()
+      atropelloAudio.play();
       eachHippie.isScored = true;
       score += 75;
       scoreNode.innerText = `Score: ${score}`;
       setTimeout(() => {
         eachHippie.node.style.display = "none";
-        
       }, 300);
     }
   });
 }
-function detectCarCrashBeer(){
-
+function detectCarCrashBeer() {
   BeerBoosterArray.forEach((eachBeer) => {
-    if(eachBeer.IsWorking){
-      return
+    if (eachBeer.IsWorking) {
+      return;
     }
 
     if (
@@ -250,68 +244,55 @@ function detectCarCrashBeer(){
       mainCar.y < eachBeer.y + eachBeer.h &&
       mainCar.y + eachBeer.h > eachBeer.y
     ) {
-
-      eachBeer.IsWorking = true
-      eachBeer.node.style.display = "none"
-      mainCar.driverBoozer()
-      audioGame.volume = 0.02
-      beerAudio.play()
-      setTimeout(() =>{
-        beerAudio.pause()
-        beerAudio.currentTime = 0
-        audioGame.volume = 0.1
-      },6000)
-
+      eachBeer.IsWorking = true;
+      eachBeer.node.style.display = "none";
+      mainCar.driverBoozer();
+      audioGame.volume = 0.02;
+      beerAudio.play();
+      setTimeout(() => {
+        beerAudio.pause();
+        beerAudio.currentTime = 0;
+        audioGame.volume = 0.1;
+      }, 6000);
     }
-    
   });
-
-
 }
 
-function detectCarCrashWalls(){
-  if((mainCar.x >= gameBoxNode.offsetWidth - mainCar.w) ){
-    mainCar.node.src = "./img/explosion.png"
-    crashCarAudio.play()
-    setTimeout(() =>{
-      
-      gameOver()
-    },200)
-}
-if (mainCar.y >= gameBoxNode.offsetHeight - mainCar.h) {
-  mainCar.node.src = "./img/explosion.png"
-  crashCarAudio.play()
-  setTimeout(() =>{
-   
-    gameOver()
-  },200)
- 
-}
+function detectCarCrashWalls() {
+  if (mainCar.x >= gameBoxNode.offsetWidth - mainCar.w) {
+    mainCar.node.src = "./img/explosion.png";
+    crashCarAudio.play();
+    setTimeout(() => {
+      gameOver();
+    }, 200);
+  }
+  if (mainCar.y >= gameBoxNode.offsetHeight - mainCar.h) {
+    mainCar.node.src = "./img/explosion.png";
+    crashCarAudio.play();
+    setTimeout(() => {
+      gameOver();
+    }, 200);
+  }
 
-if (mainCar.x <= 0) {
-  mainCar.node.src = "./img/explosion.png"
-  crashCarAudio.play()
-  setTimeout(() =>{
-    
-    gameOver()
-  },200)
-}
+  if (mainCar.x <= 0) {
+    mainCar.node.src = "./img/explosion.png";
+    crashCarAudio.play();
+    setTimeout(() => {
+      gameOver();
+    }, 200);
+  }
 
-if (mainCar.y <= 0) {
-  mainCar.node.src = "./img/explosion.png"
-  crashCarAudio.play()
-  setTimeout(() =>{
-   
-    gameOver()
-    
-  },200)
-}
-
+  if (mainCar.y <= 0) {
+    mainCar.node.src = "./img/explosion.png";
+    crashCarAudio.play();
+    setTimeout(() => {
+      gameOver();
+    }, 200);
+  }
 }
 //GAME LOOP
 
 function gameLoop() {
-  
   enemyCarArray.forEach((eachEnemyCar) => {
     eachEnemyCar.automaticMovement();
   });
@@ -330,10 +311,10 @@ function gameLoop() {
   detectCarCrashMainstream();
   detectIfHippiesLeave();
   detectCarCrashHippies();
-  detectIfBeerBoosterLeave()
-  mainCar.mainCarMovement()
-  detectCarCrashBeer()
-  detectCarCrashWalls()
+  detectIfBeerBoosterLeave();
+  mainCar.mainCarMovement();
+  detectCarCrashBeer();
+  detectCarCrashWalls();
 }
 
 //GAME OVER
@@ -346,19 +327,16 @@ function gameOver() {
   clearInterval(enemyCarIntervalId);
   clearInterval(HippiesIntervalId);
   clearInterval(mainstreamIntervalId);
-  
-  gameBoxNode.innerHTML =""
-  
+
+  gameBoxNode.innerHTML = "";
 
   gameScreenNode.style.display = "none";
   gameOverScreenNode.style.display = "flex";
   finalScoreNode.innerText = `Conductor solo has conseguido ${score} puntos`;
-  
-  
 }
 
-function restartGame(){
-  gameBoxNode.innerHTML =""
+function restartGame() {
+  gameBoxNode.innerHTML = "";
   score = 0;
   mainCar = null;
   gameIntervalId = null;
@@ -368,35 +346,30 @@ function restartGame(){
   mainstreamIntervalId = null;
   hippiesArray = [];
   hippiesIntervalId = null;
-  BeerBoosterArray = []
+  BeerBoosterArray = [];
   BeerBoosterIntervalId = null;
   scoreNode.innerText = `Your Score: ${score}`;
-  gameOverAudio.pause()
-  startGame()
-
+  gameOverAudio.pause();
+  startGame();
 }
 
 //!EVENT LISTENERS
 
 startBtnNode.addEventListener("click", startGame);
-restartBtnNode.addEventListener("click",restartGame);
+restartBtnNode.addEventListener("click", restartGame);
 window.addEventListener("keydown", (event) => {
   if (event.key === "a") {
     mainCar.keys.left = true;
-   
   } else if (event.key === "d") {
     mainCar.keys.right = true;
-  
   } else if (event.key === "w") {
     mainCar.keys.up = true;
-    
   } else if (event.key === "s") {
     mainCar.keys.down = true;
-    
   }
 });
 
-window.addEventListener("keyup",(event) =>{
+window.addEventListener("keyup", (event) => {
   if (event.key === "a") {
     mainCar.keys.left = false;
   } else if (event.key === "d") {
@@ -406,16 +379,14 @@ window.addEventListener("keyup",(event) =>{
   } else if (event.key === "s") {
     mainCar.keys.down = false;
   }
+});
+pauseAudioNode.addEventListener("click", () => {
+  audioGame.pause();
+});
 
-
-})
-pauseAudioNode.addEventListener("click",() =>{
-  audioGame.pause()
-})
-
-playAudioNode.addEventListener("click",() =>{
-  audioGame.play()
-})
+playAudioNode.addEventListener("click", () => {
+  audioGame.play();
+});
 //! PLANIFICACION
 
 //Crear la clase del coche CHECK!
@@ -429,8 +400,8 @@ playAudioNode.addEventListener("click",() =>{
 //los coches rivales aparecen de manera random CHECK!
 //los coches deben desaparecer (dejar de exisitir en js, dejar de exisitir en el DOM) CHECK!
 
-//colisiones coche contra mainstreamers (aumenta score)
-//colisiones coche contra perroflautas (aumenta score)
+//colisiones coche contra mainstreamers (aumenta score) CHECK!
+//colisiones coche contra perroflautas (aumenta score) CHECK!
 //colisiones coche contra coches (game-over) CHECK!
 
-//colision coche contra los margenes (game over)
+//colision coche contra los margenes (game over) CHECK!
