@@ -14,6 +14,7 @@ class MainCar{
 
     }
 
+    this.boozespeed = 0.5;
 
     //COCHE EN EL DOM
 
@@ -49,7 +50,16 @@ if (this.keys.up && this.y >= 0) {
 
 driverBoozer() {
 
-  
+  const driverBoozerIntervalId = setInterval(() =>{
+this.x += this.boozespeed
+  this.node.style.left = `${this.x}px`
+  })
+
+  setTimeout(() => {
+
+    clearInterval(driverBoozerIntervalId)
+
+  },15000)
 }
 
 }

@@ -219,17 +219,55 @@ function detectCarCrashHippies() {
 function detectCarCrashBeer(){
 
   BeerBoosterArray.forEach((eachBeer) => {
+    if(eachBeer.IsWorking){
+      return
+    }
+
     if (
       mainCar.x < eachBeer.x + eachBeer.w &&
       mainCar.x + eachBeer.w > eachBeer.x &&
       mainCar.y < eachBeer.y + eachBeer.h &&
       mainCar.y + eachBeer.h > eachBeer.y
     ) {
-      
+
+      eachBeer.IsWorking = true
+      eachBeer.node.style.display = "none"
+      mainCar.driverBoozer()
     }
-    // Collision detected!
+    
   });
 
+
+}
+
+function detectCarCrashWalls(){
+  if((mainCar.x >= gameBoxNode.offsetWidth - mainCar.w) ){
+    mainCar.node.src = "./img/explosion.png"
+    setTimeout(() =>{
+      gameOver()
+    },200)
+}
+if (mainCar.y >= gameBoxNode.offsetHeight - mainCar.h) {
+  mainCar.node.src = "./img/explosion.png"
+  setTimeout(() =>{
+    gameOver()
+  },200)
+ 
+}
+
+if (mainCar.x <= 0) {
+  mainCar.node.src = "./img/explosion.png"
+  setTimeout(() =>{
+    gameOver()
+  },200)
+}
+
+if (mainCar.y <= 0) {
+  mainCar.node.src = "./img/explosion.png"
+  setTimeout(() =>{
+    gameOver()
+  },200)
+}
 
 }
 //GAME LOOP
@@ -256,6 +294,8 @@ function gameLoop() {
   detectCarCrashHippies();
   detectIfBeerBoosterLeave()
   mainCar.mainCarMovement()
+  detectCarCrashBeer()
+  detectCarCrashWalls()
 }
 
 //GAME OVER
