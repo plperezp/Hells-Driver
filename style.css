@@ -90,3 +90,16 @@ h2 {
 #game-over-screen {
   display: none;
 }
+#restart-game-btn {
+  background-image: url("./img/restart.png");
+  color: transparent;
+  padding: 20px;
+  font-size: 25px;
+  margin-top: 40px;
+  border-radius: 10px;
+  background-position: center;
+  background-size: cover;
+}
+
+
+

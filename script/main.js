@@ -7,14 +7,14 @@ const gameOverScreenNode = document.querySelector("#game-over-screen");
 
 // BOTONES
 const startBtnNode = document.querySelector("#start-game-btn");
-
+const restartBtnNode = document.querySelector("#restart-game-btn")
 // GAME-BOX
 const gameBoxNode = document.querySelector("#game-box");
 
 //! VARIABLES GLOBALES DEL JUEGO
 let score = 0;
-scoreNode = document.querySelector(".score");
-finalScoreNode = document.querySelector("#final-score");
+let scoreNode = document.querySelector("#score");
+let finalScoreNode = document.querySelector("#final-score");
 
 //MAIN CAR
 let mainCar = null;
@@ -55,7 +55,7 @@ function startGame() {
   mainCar = new MainCar();
 
   //3 INTERVALOS DE JUEGO
-
+  
   gameIntervalId = setInterval(() => {
     gameLoop();
   }, Math.round(1000 / 60)); //60fps
@@ -74,7 +74,7 @@ function startGame() {
   BeerBoosterIntervalId = setInterval(() =>{
     addBeerBooster()
   },frecuenciaBeer)
-
+console.log(score)
 }
 
 //FUNCIONES ADD
@@ -88,7 +88,7 @@ function addEnemyCar() {
   let newEnemyCarRight = new EnemyCar(randomPositionX + 400);
   enemyCarArray.push(newEnemyCarRight);
 
-  console.log(enemyCarArray);
+ 
 }
 function addMainstream() {
   let randomPositionY = Math.floor(Math.random() * 250);
@@ -98,7 +98,7 @@ function addMainstream() {
 }
 function addHippies() {
   let randomPositionY = Math.floor(Math.random() * 600);
-  console.log(randomPositionY);
+  
   let newHippies = new Hippies(randomPositionY);
   hippiesArray.push(newHippies);
 }
@@ -273,7 +273,7 @@ if (mainCar.y <= 0) {
 //GAME LOOP
 
 function gameLoop() {
-  // se ejecuta 60 veces por segundo en el intervalo principal
+  
   enemyCarArray.forEach((eachEnemyCar) => {
     eachEnemyCar.automaticMovement();
   });
@@ -301,33 +301,55 @@ function gameLoop() {
 //GAME OVER
 
 function gameOver() {
-  //1. limpiar los intervalos
+
   clearInterval(gameIntervalId);
   clearInterval(enemyCarIntervalId);
   clearInterval(HippiesIntervalId);
   clearInterval(mainstreamIntervalId);
+  
+  gameBoxNode.innerHTML =""
+  
 
   gameScreenNode.style.display = "none";
   gameOverScreenNode.style.display = "flex";
   finalScoreNode.innerText = `Driver your final score was ${score}`;
 }
 
+function restartGame(){
+  gameBoxNode.innerHTML =""
+  score = 0;
+  mainCar = null;
+  gameIntervalId = null;
+  enemyCarArray = [];
+  enemyCarIntervalId = null;
+  mainstreamArray = [];
+  mainstreamIntervalId = null;
+  hippiesArray = [];
+  hippiesIntervalId = null;
+  BeerBoosterArray = []
+  BeerBoosterIntervalId = null;
+  scoreNode.innerText = `Your Score: ${score}`;
+  startGame()
+
+}
+
 //!EVENT LISTENERS
 
 startBtnNode.addEventListener("click", startGame);
+restartBtnNode.addEventListener("click",restartGame);
 window.addEventListener("keydown", (event) => {
   if (event.key === "a") {
     mainCar.keys.left = true;
-    console.log(mainCar.keys)
+   
   } else if (event.key === "d") {
     mainCar.keys.right = true;
-    console.log(mainCar.keys)
+  
   } else if (event.key === "w") {
     mainCar.keys.up = true;
-    console.log(mainCar.keys)
+    
   } else if (event.key === "s") {
     mainCar.keys.down = true;
-    console.log(mainCar.keys)
+    
   }
 });
 
