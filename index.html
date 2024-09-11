@@ -15,7 +15,7 @@
   <body>
     <!-- PANTALLA DE INICIO-->
     <div id="splash-screen" class="container">
-      <img src="./img/HellDriverScreen.jpg" width="900" alt="hellDriverLogo"/>
+      <img src="./img/HellDriverScreen.jpg" width="550px" alt="hellDriverLogo"/>
       <br />
       <div id="game-info">
         <h2>Instrucciones</h2>
@@ -37,16 +37,29 @@
             Ten cuidado con las cervezas🍺, pueden afectar a tu forma de conducir
           </li>
           <li>Si te estrellas contra otro coche... MUERES☠️</li>
+  
         </ul>
       </div>
+      <h2>Controles</h2>
+        
+      <img src ="img/controles.png" alt = "controles" width = "150px">
+      
+      
       <button id="start-game-btn">Let's go driver</button>
     </div>
 
     <!--PANTALLA DE JUEGO-->
     <div id="game-screen" class="container">
-      <!--aqui hay que añadir el score-->
-      <div id="score">Score: 0</div>
+
+      
+      <div id="score">Score: 0 </div>
+
+      <img src="./img/audiobtn.png"id="audio-btn" alt ="audio-btn" width="30px">
+      <img src="./img/audiomuted.png"id="pause-audio-btn" alt ="pause-audio-btn" width="30px">
+      
+      
       <div id="game-box"></div>
+    
     </div>
 
     <!--PANTALLA FINAL-->
@@ -57,7 +70,7 @@
       
       <br />
 
-      <div id="final-score">Conductor, tu puntuación final es :0</div>
+      <div id="final-score">Conductor, solo has conseguido 0 puntos</div>
       <button id="restart-game-btn">Restart game!</button>
     </div>
     <script src="script/main.js"></script>

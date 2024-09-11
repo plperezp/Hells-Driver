@@ -4,6 +4,22 @@
 const splashScreenNode = document.querySelector("#splash-screen");
 const gameScreenNode = document.querySelector("#game-screen");
 const gameOverScreenNode = document.querySelector("#game-over-screen");
+let scoreNode = document.querySelector("#score");
+let finalScoreNode = document.querySelector("#final-score")
+let pauseAudioNode = document.querySelector("#pause-audio-btn")
+let playAudioNode = document.querySelector("#audio-btn")
+//AUDIO
+
+let audioGame = new Audio("./audio/game-music.mp3")
+audioGame.volume = 0.1;
+let gameOverAudio = new Audio("./audio/game-over.mp3")
+gameOverAudio.volume = 0.1;
+let crashCarAudio = new Audio ("./audio/car-crash.wav")
+crashCarAudio.volume = 0.08;
+let atropelloAudio = new Audio ("./audio/atropello.mp3")
+atropelloAudio.volume= 0.08
+let beerAudio = new Audio("./audio/beer-drunk.mp3")
+beerAudio.volume= 0.5
 
 // BOTONES
 const startBtnNode = document.querySelector("#start-game-btn");
@@ -13,8 +29,7 @@ const gameBoxNode = document.querySelector("#game-box");
 
 //! VARIABLES GLOBALES DEL JUEGO
 let score = 0;
-let scoreNode = document.querySelector("#score");
-let finalScoreNode = document.querySelector("#final-score");
+
 
 //MAIN CAR
 let mainCar = null;
@@ -28,12 +43,12 @@ let enemyCarIntervalId = null;
 //MAINSTREAMER
 let mainstreamArray = [];
 let mainstreamIntervalId = null;
-let frecuenciaMainstream = 1000;
+let frecuenciaMainstream = 3000;
 
 //HIPPIES
 
 let hippiesArray = [];
-let frecuenciaHippies = 1000;
+let frecuenciaHippies = 3000;
 let hippiesIntervalId = null;
 
 //BEERBOOSTER
@@ -46,7 +61,8 @@ let BeerBoosterIntervalId = null;
 
 function startGame() {
   //1.- CAMBIAR LAS PANTALLAS
-
+  audioGame.play()
+  
   splashScreenNode.style.display = "none";
   gameScreenNode.style.display = "flex";
 
@@ -164,6 +180,7 @@ function detectCarCrashEnemyCar() {
       mainCar.y + eachCarEnemy.h > eachCarEnemy.y
     ) {
       mainCar.node.src = "./img/explosion.png";
+      crashCarAudio.play()
       setTimeout(() => {
         gameOver();
       }, 300);
@@ -184,12 +201,14 @@ function detectCarCrashMainstream() {
       mainCar.y + eachMainstream.h > eachMainstream.y
     ) {
       eachMainstream.node.src = "./img/sangre.png";
+      atropelloAudio.play()
       eachMainstream.isScored = true;
       score += 50;
       scoreNode.innerText = `Score: ${score}`;
 
       setTimeout(() => {
         eachMainstream.node.style.display = "none";
+        
       }, 300);
     }
   });
@@ -207,11 +226,13 @@ function detectCarCrashHippies() {
       mainCar.y + eachHippie.h > eachHippie.y
     ) {
       eachHippie.node.src = "./img/sangre.png";
+      atropelloAudio.play()
       eachHippie.isScored = true;
       score += 75;
       scoreNode.innerText = `Score: ${score}`;
       setTimeout(() => {
         eachHippie.node.style.display = "none";
+        
       }, 300);
     }
   });
@@ -233,6 +254,14 @@ function detectCarCrashBeer(){
       eachBeer.IsWorking = true
       eachBeer.node.style.display = "none"
       mainCar.driverBoozer()
+      audioGame.volume = 0.02
+      beerAudio.play()
+      setTimeout(() =>{
+        beerAudio.pause()
+        beerAudio.currentTime = 0
+        audioGame.volume = 0.1
+      },6000)
+
     }
     
   });
@@ -243,13 +272,17 @@ function detectCarCrashBeer(){
 function detectCarCrashWalls(){
   if((mainCar.x >= gameBoxNode.offsetWidth - mainCar.w) ){
     mainCar.node.src = "./img/explosion.png"
+    crashCarAudio.play()
     setTimeout(() =>{
+      
       gameOver()
     },200)
 }
 if (mainCar.y >= gameBoxNode.offsetHeight - mainCar.h) {
   mainCar.node.src = "./img/explosion.png"
+  crashCarAudio.play()
   setTimeout(() =>{
+   
     gameOver()
   },200)
  
@@ -257,15 +290,20 @@ if (mainCar.y >= gameBoxNode.offsetHeight - mainCar.h) {
 
 if (mainCar.x <= 0) {
   mainCar.node.src = "./img/explosion.png"
+  crashCarAudio.play()
   setTimeout(() =>{
+    
     gameOver()
   },200)
 }
 
 if (mainCar.y <= 0) {
   mainCar.node.src = "./img/explosion.png"
+  crashCarAudio.play()
   setTimeout(() =>{
+   
     gameOver()
+    
   },200)
 }
 
@@ -301,7 +339,9 @@ function gameLoop() {
 //GAME OVER
 
 function gameOver() {
-
+  audioGame.pause();
+  audioGame.currentTime = 0;
+  gameOverAudio.play();
   clearInterval(gameIntervalId);
   clearInterval(enemyCarIntervalId);
   clearInterval(HippiesIntervalId);
@@ -312,7 +352,9 @@ function gameOver() {
 
   gameScreenNode.style.display = "none";
   gameOverScreenNode.style.display = "flex";
-  finalScoreNode.innerText = `Driver your final score was ${score}`;
+  finalScoreNode.innerText = `Conductor solo has conseguido ${score} puntos`;
+  
+  
 }
 
 function restartGame(){
@@ -329,6 +371,7 @@ function restartGame(){
   BeerBoosterArray = []
   BeerBoosterIntervalId = null;
   scoreNode.innerText = `Your Score: ${score}`;
+  gameOverAudio.pause()
   startGame()
 
 }
@@ -366,7 +409,13 @@ window.addEventListener("keyup",(event) =>{
 
 
 })
+pauseAudioNode.addEventListener("click",() =>{
+  audioGame.pause()
+})
 
+playAudioNode.addEventListener("click",() =>{
+  audioGame.play()
+})
 //! PLANIFICACION
 
 //Crear la clase del coche CHECK!
