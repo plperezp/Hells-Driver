@@ -57,7 +57,7 @@ let BeerBoosterArray = [];
 let frecuenciaBeer = 5000;
 let BeerBoosterIntervalId = null;
 
-let isGoingEnding = false
+let isGoingEnding = false;
 
 //!FUNCIONES GLOBALES DEL JUEGO
 
@@ -99,20 +99,19 @@ function startGame() {
 
 function saveAndshowScores() {
   puntuaciones.unshift(score);
-  console.log(puntuaciones)
+  console.log(puntuaciones);
 
   // sort
 
-  puntuaciones.sort((a, b) =>{
-    b.score - a.score
-  })
+  puntuaciones.sort((a, b) => {
+    b.score - a.score;
+  });
 
-  
   let mejoresScores = puntuaciones.slice(0, 5);
   localStorage.setItem("scores", JSON.stringify(mejoresScores));
-  console.log(mejoresScores)
+  console.log(mejoresScores);
   scoreListNode.innerHTML = "";
-  
+
   mejoresScores.forEach((score, index) => {
     const lista = document.createElement("li");
     lista.innerText = `Conductor ${index + 1}: ${score} puntos `;
@@ -196,9 +195,8 @@ function detectIfBeerBoosterLeave() {
 //FUNCIONES DETECT CRASH
 
 function detectCarCrashEnemyCar() {
-
   if (isGoingEnding) {
-    return // para que no vuelva a checkear la colision. ver setTimeout interno
+    return; // para que no vuelva a checkear la colision. ver setTimeout interno
   }
 
   enemyCarArray.forEach((eachCarEnemy) => {
@@ -210,7 +208,7 @@ function detectCarCrashEnemyCar() {
     ) {
       mainCar.node.src = "./img/explosion.png";
       crashCarAudio.play();
-      isGoingEnding = true
+      isGoingEnding = true;
       setTimeout(() => {
         gameOver();
       }, 300);
@@ -294,13 +292,13 @@ function detectCarCrashBeer() {
 
 function detectCarCrashWalls() {
   if (isGoingEnding) {
-    return // para que no vuelva a checkear la colision. ver setTimeout interno
+    return; // para que no vuelva a checkear la colision. ver setTimeout interno
   }
 
   if (mainCar.x >= gameBoxNode.offsetWidth - mainCar.w) {
     mainCar.node.src = "./img/explosion.png";
     crashCarAudio.play();
-    isGoingEnding = true
+    isGoingEnding = true;
     setTimeout(() => {
       gameOver();
     }, 200);
@@ -308,7 +306,7 @@ function detectCarCrashWalls() {
   if (mainCar.y >= gameBoxNode.offsetHeight - mainCar.h) {
     mainCar.node.src = "./img/explosion.png";
     crashCarAudio.play();
-    isGoingEnding = true
+    isGoingEnding = true;
     setTimeout(() => {
       gameOver();
     }, 200);
@@ -317,7 +315,7 @@ function detectCarCrashWalls() {
   if (mainCar.x <= 0) {
     mainCar.node.src = "./img/explosion.png";
     crashCarAudio.play();
-    isGoingEnding = true
+    isGoingEnding = true;
     setTimeout(() => {
       gameOver();
     }, 200);
@@ -326,7 +324,7 @@ function detectCarCrashWalls() {
   if (mainCar.y <= 0) {
     mainCar.node.src = "./img/explosion.png";
     crashCarAudio.play();
-    isGoingEnding = true
+    isGoingEnding = true;
     setTimeout(() => {
       gameOver();
     }, 200);
@@ -372,8 +370,6 @@ function gameOver() {
 
   gameBoxNode.innerHTML = "";
 
-  //PARA GUARDAR EL PUNTAJE FINAL EN EL LOCALSTORAGE
-
   gameScreenNode.style.display = "none";
   gameOverScreenNode.style.display = "flex";
   finalScoreNode.innerText = `Conductor solo has conseguido ${score} puntos`;
@@ -385,6 +381,7 @@ function restartGame() {
   gameBoxNode.innerHTML = "";
   scoreListNode.innerHTML = "";
   score = 0;
+  gameOverScreenNode.style.display = "none";
   mainCar = null;
   gameIntervalId = null;
   enemyCarArray = [];
@@ -396,9 +393,10 @@ function restartGame() {
   BeerBoosterArray = [];
   BeerBoosterIntervalId = null;
   scoreNode.innerText = `Your Score: ${score}`;
-  gameOverAudio.pause()
+  gameOverAudio.pause();
   gameOverAudio.currentTime = 0;
-  isGoingEnding = false
+  isGoingEnding = false;
+  
   startGame();
 }
 
