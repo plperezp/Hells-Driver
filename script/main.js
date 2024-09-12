@@ -6,8 +6,9 @@ const gameScreenNode = document.querySelector("#game-screen");
 const gameOverScreenNode = document.querySelector("#game-over-screen");
 let scoreNode = document.querySelector("#score");
 let finalScoreNode = document.querySelector("#final-score");
-let pauseAudioNode = document.querySelector("#pause-audio-btn");
 let playAudioNode = document.querySelector("#audio-btn");
+let pauseAudioNode = document.querySelector("#pause-audio-btn");
+let scoreListNode = document.querySelector("#scoreList");
 //AUDIO
 
 let audioGame = new Audio("./audio/game-music.mp3");
@@ -29,7 +30,7 @@ const gameBoxNode = document.querySelector("#game-box");
 
 //! VARIABLES GLOBALES DEL JUEGO
 let score = 0;
-
+let puntuaciones = JSON.parse(localStorage.getItem("scores")) || [];
 //MAIN CAR
 let mainCar = null;
 let gameIntervalId = null;
@@ -56,10 +57,14 @@ let BeerBoosterArray = [];
 let frecuenciaBeer = 5000;
 let BeerBoosterIntervalId = null;
 
+let isGoingEnding = false
+
 //!FUNCIONES GLOBALES DEL JUEGO
 
 function startGame() {
   //1.- CAMBIAR LAS PANTALLAS
+  score = 0;
+  scoreListNode.innerHTML = "";
   audioGame.play();
 
   splashScreenNode.style.display = "none";
@@ -92,6 +97,28 @@ function startGame() {
   console.log(score);
 }
 
+function saveAndshowScores() {
+  puntuaciones.unshift(score);
+  console.log(puntuaciones)
+
+  // sort
+
+  puntuaciones.sort((a, b) =>{
+    b.score - a.score
+  })
+
+  
+  let mejoresScores = puntuaciones.slice(0, 5);
+  localStorage.setItem("scores", JSON.stringify(mejoresScores));
+  console.log(mejoresScores)
+  scoreListNode.innerHTML = "";
+  
+  mejoresScores.forEach((score, index) => {
+    const lista = document.createElement("li");
+    lista.innerText = `Conductor ${index + 1}: ${score} puntos `;
+    scoreListNode.appendChild(lista);
+  });
+}
 //FUNCIONES ADD
 
 function addEnemyCar() {
@@ -169,6 +196,11 @@ function detectIfBeerBoosterLeave() {
 //FUNCIONES DETECT CRASH
 
 function detectCarCrashEnemyCar() {
+
+  if (isGoingEnding) {
+    return // para que no vuelva a checkear la colision. ver setTimeout interno
+  }
+
   enemyCarArray.forEach((eachCarEnemy) => {
     if (
       mainCar.x < eachCarEnemy.x + eachCarEnemy.w &&
@@ -178,6 +210,7 @@ function detectCarCrashEnemyCar() {
     ) {
       mainCar.node.src = "./img/explosion.png";
       crashCarAudio.play();
+      isGoingEnding = true
       setTimeout(() => {
         gameOver();
       }, 300);
@@ -249,6 +282,7 @@ function detectCarCrashBeer() {
       mainCar.driverBoozer();
       audioGame.volume = 0.02;
       beerAudio.play();
+
       setTimeout(() => {
         beerAudio.pause();
         beerAudio.currentTime = 0;
@@ -259,9 +293,14 @@ function detectCarCrashBeer() {
 }
 
 function detectCarCrashWalls() {
+  if (isGoingEnding) {
+    return // para que no vuelva a checkear la colision. ver setTimeout interno
+  }
+
   if (mainCar.x >= gameBoxNode.offsetWidth - mainCar.w) {
     mainCar.node.src = "./img/explosion.png";
     crashCarAudio.play();
+    isGoingEnding = true
     setTimeout(() => {
       gameOver();
     }, 200);
@@ -269,6 +308,7 @@ function detectCarCrashWalls() {
   if (mainCar.y >= gameBoxNode.offsetHeight - mainCar.h) {
     mainCar.node.src = "./img/explosion.png";
     crashCarAudio.play();
+    isGoingEnding = true
     setTimeout(() => {
       gameOver();
     }, 200);
@@ -277,6 +317,7 @@ function detectCarCrashWalls() {
   if (mainCar.x <= 0) {
     mainCar.node.src = "./img/explosion.png";
     crashCarAudio.play();
+    isGoingEnding = true
     setTimeout(() => {
       gameOver();
     }, 200);
@@ -285,6 +326,7 @@ function detectCarCrashWalls() {
   if (mainCar.y <= 0) {
     mainCar.node.src = "./img/explosion.png";
     crashCarAudio.play();
+    isGoingEnding = true
     setTimeout(() => {
       gameOver();
     }, 200);
@@ -330,13 +372,18 @@ function gameOver() {
 
   gameBoxNode.innerHTML = "";
 
+  //PARA GUARDAR EL PUNTAJE FINAL EN EL LOCALSTORAGE
+
   gameScreenNode.style.display = "none";
   gameOverScreenNode.style.display = "flex";
   finalScoreNode.innerText = `Conductor solo has conseguido ${score} puntos`;
+
+  saveAndshowScores();
 }
 
 function restartGame() {
   gameBoxNode.innerHTML = "";
+  scoreListNode.innerHTML = "";
   score = 0;
   mainCar = null;
   gameIntervalId = null;
@@ -349,7 +396,9 @@ function restartGame() {
   BeerBoosterArray = [];
   BeerBoosterIntervalId = null;
   scoreNode.innerText = `Your Score: ${score}`;
-  gameOverAudio.pause();
+  gameOverAudio.pause()
+  gameOverAudio.currentTime = 0;
+  isGoingEnding = false
   startGame();
 }
 
@@ -380,12 +429,13 @@ window.addEventListener("keyup", (event) => {
     mainCar.keys.down = false;
   }
 });
-pauseAudioNode.addEventListener("click", () => {
-  audioGame.pause();
-});
 
 playAudioNode.addEventListener("click", () => {
   audioGame.play();
+});
+
+pauseAudioNode.addEventListener("click", () => {
+  audioGame.pause();
 });
 //! PLANIFICACION
 
