@@ -11,13 +11,17 @@
       href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap"
       rel="stylesheet"
     />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap" rel="stylesheet">
   </head>
   <body>
     <!-- PANTALLA DE INICIO-->
     <div id="splash-screen" class="container">
-      <img src="./img/HellDriverScreen.jpg" width="550px" alt="hellDriverLogo"/>
+      <img src="./img/HellDriverScreen.jpg" width="700px" alt="hellDriverLogo"/>
       <br />
-      <div id="game-info">
+      <div id="columnas">
+      <div id="game-info" class ="inicio">
         <h2>Instrucciones</h2>
         <p>
           ¿Alguna vez has soñado con atropellar de manera colerica a todos esos
@@ -25,7 +29,7 @@
           peatones? ESTE ES TU JUEGO.
         </p>
       </div>
-      <div id="game-rules">
+      <div id="game-rules"class ="inicio">
         <h2>Reglas</h2>
 
         <ul>
@@ -36,15 +40,16 @@
           <li>
             Ten cuidado con las cervezas🍺, pueden afectar a tu forma de conducir
           </li>
-          <li>Si te estrellas contra otro coche... MUERES☠️</li>
+          <li>Si te estrellas contra otro coche o contra el muro... MUERES☠️</li>
   
         </ul>
       </div>
+      <div id ="controles" class ="inicio">
       <h2>Controles</h2>
         
       <img src ="img/controles.png" alt = "controles" width = "150px">
-      
-      
+      </div>
+     </div> 
       <button id="start-game-btn">Let's go driver</button>
     </div>
 
@@ -73,11 +78,12 @@
       <div id="final-score">Conductor, tu puntuación final es :0</div>
       <button id="restart-game-btn">Restart game!</button>
     </div>
-    <script src="script/main.js"></script>
+    
     <script src="script/maincar.js"></script>
     <script src="script/enemyCar.js"></script>
     <script src="script/mainstreamers.js"></script>
     <script src="script/hippies.js"></script>
     <script src="script/BeerBooster.js"></script>
+    <script src="script/main.js"></script>
   </body>
 </html>
