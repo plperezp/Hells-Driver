@@ -21,6 +21,8 @@ let atropelloAudio = new Audio("./audio/atropello.mp3");
 atropelloAudio.volume = 0.08;
 let beerAudio = new Audio("./audio/beer-drunk.mp3");
 beerAudio.volume = 0.5;
+let startGameAudio = new Audio("./audio/startgame.mp3");
+startGameAudio.volume = 0.08
 
 // BOTONES
 const startBtnNode = document.querySelector("#start-game-btn");
@@ -142,7 +144,7 @@ function addHippies() {
   hippiesArray.push(newHippies);
 }
 function addBeerBooster() {
-  let randomPositionY = Math.floor(Math.random() * 650);
+  let randomPositionY = Math.floor(Math.random() * 750);
   let newBeerBooster = new BeerBooster(randomPositionY);
   BeerBoosterArray.push(newBeerBooster);
 }
@@ -372,7 +374,7 @@ function gameOver() {
 
   gameScreenNode.style.display = "none";
   gameOverScreenNode.style.display = "flex";
-  finalScoreNode.innerText = `Conductor solo has conseguido ${score} puntos`;
+  finalScoreNode.innerText = `Driver your final score was ${score}`;
 
   saveAndshowScores();
 }
@@ -402,7 +404,10 @@ function restartGame() {
 
 //!EVENT LISTENERS
 
-startBtnNode.addEventListener("click", startGame);
+startBtnNode.addEventListener("click", () =>{
+startGameAudio.play()  
+startGame()
+});
 restartBtnNode.addEventListener("click", restartGame);
 window.addEventListener("keydown", (event) => {
   if (event.key === "a") {

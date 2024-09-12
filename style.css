@@ -7,7 +7,7 @@ h2 {
   display: flex;
   justify-content: center;
   color: white;
-  font-family: "Pixelify Sans", sans-serif;
+  font-family: "Audiowide", sans-serif;
   font-optical-sizing: auto;
   font-style: normal;
   text-shadow: 1px 1px 2px red, 0 0 1em blue, 0 0 0.2em blue;
@@ -122,7 +122,7 @@ h2 {
 }
 #score{
   color : white;
-  font-family: "Pixelify Sans", sans-serif;
+  font-family: "Audiowide", sans-serif;
   font-size: 35px;
   display: flex;
   flex-direction: row;
@@ -136,7 +136,7 @@ h2 {
 
 #final-score{
   color : white;
-  font-family: "Pixelify Sans", sans-serif;
+  font-family: "Audiowide", sans-serif;
   font-size: 35px;
   text-shadow:  1px 2px red, 0 0 1em blue, 0 0 0.2em blue;
 
@@ -187,5 +187,13 @@ h2 {
   background-size: cover;
 }
 
+#scoreList li{
+  color : white;
+  font-family: "Audiowide", sans-serif;
+  font-size: 25px;
+  text-shadow:  1px 2px red, 0 0 1em blue, 0 0 0.2em blue;
+
+
+}
 
 
