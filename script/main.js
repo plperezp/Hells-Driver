@@ -12,7 +12,7 @@ let scoreListNode = document.querySelector("#scoreList");
 //AUDIO
 
 let audioGame = new Audio("./audio/game-music.mp3");
-audioGame.volume = 0.1;
+audioGame.volume = 0.08;
 let gameOverAudio = new Audio("./audio/game-over.mp3");
 gameOverAudio.volume = 0.1;
 let crashCarAudio = new Audio("./audio/car-crash.wav");
@@ -22,7 +22,7 @@ atropelloAudio.volume = 0.08;
 let beerAudio = new Audio("./audio/beer-drunk.mp3");
 beerAudio.volume = 0.5;
 let startGameAudio = new Audio("./audio/startgame.mp3");
-startGameAudio.volume = 0.08
+startGameAudio.volume = 0.1
 
 // BOTONES
 const startBtnNode = document.querySelector("#start-game-btn");
@@ -408,27 +408,30 @@ startBtnNode.addEventListener("click", () =>{
 startGameAudio.play()  
 startGame()
 });
-restartBtnNode.addEventListener("click", restartGame);
+restartBtnNode.addEventListener("click", () =>{
+  startGameAudio.play()
+  restartGame()
+});
 window.addEventListener("keydown", (event) => {
-  if (event.key === "a") {
+  if (event.key === "a" || event.key === "A") {
     mainCar.keys.left = true;
-  } else if (event.key === "d") {
+  } else if (event.key === "d" || event.key === "D") {
     mainCar.keys.right = true;
-  } else if (event.key === "w") {
+  } else if (event.key === "w" || event.key === "W") {
     mainCar.keys.up = true;
-  } else if (event.key === "s") {
+  } else if (event.key === "s" || event.key === "S") {
     mainCar.keys.down = true;
   }
 });
 
 window.addEventListener("keyup", (event) => {
-  if (event.key === "a") {
+  if (event.key === "a"|| event.key === "A") {
     mainCar.keys.left = false;
-  } else if (event.key === "d") {
+  } else if (event.key === "d" || event.key === "D") {
     mainCar.keys.right = false;
-  } else if (event.key === "w") {
+  } else if (event.key === "w" || event.key === "W") {
     mainCar.keys.up = false;
-  } else if (event.key === "s") {
+  } else if (event.key === "s" || event.key === "S") {
     mainCar.keys.down = false;
   }
 });
