@@ -6,32 +6,33 @@
 
 # Description
 
-*"Hell's Driver: El Juego de Conducción Definitivo"*
+*"Hell's Driver: The Definitive Driving Game"*
 
-¡Sube al volante y desata el caos en las calles! En *Hell's Driver* , atropellar no solo es permitido… ¡es tu misión! Enfréntate a un mundo sin reglas, donde los peatones son puntos, los coches enemigos son obstáculos, y el camino a la victoria es a través de la destrucción. ¿Te atreves a poner a prueba tus reflejos y tu moral?
+Get behind the wheel and unleash chaos on the streets! In *Hell's Driver*, running over is not only allowed... it's your mission! Face a world without rules, where pedestrians are points, enemy cars are obstacles, and the path to victory is through destruction. Do you dare to test your reflexes and your morals?
 
-Conduce como un maníaco: Toma el control de tu vehiculo y corre a través de la ciudad infestada de peatones desprevenidos. ¡Cuantos más atropelles, más puntos ganas!
-Modo borracho: ¿Te crees valiente? Toma un trago y ve cómo tu habilidad se distorsiona. Conducir borracho no es fácil, pero los puntos valen el riesgo.
+Drive like a maniac: Take control of your vehicle and race through the city infested with unsuspecting pedestrians. The more you run over, the more points you earn!
+Drunk mode: Do you think you are brave? Take a drink and watch your ability distort. Drunk driving isn't easy, but the points are worth the risk.
 
-Sin reglas, solo caos: No hay límites. Estrellarte contra peatones es parte del juego. La única regla es causar el máximo caos sin perder tu vida.
-¡Prepárate para una adrenalina sin fin! En *Hell's Driver*, la carretera es tu campo de batalla. ¡Aplasta, destruye y ríe mientras lo haces!.
+No rules, just chaos: There are no limits. Crashing into pedestrians is part of the game. The only rule is to cause maximum chaos without losing your life.
+Get ready for endless adrenaline! In *Hell's Driver*, the road is your battlefield. Smash, destroy and laugh while you do it!
 
 # Main Functionalities
 
-- Diferentes clases (mainCar, enemyCar, hippies, mainstreamers, beerBooster)
-- Reproduce /pausa audio
-- Colisión contra personas, vehiculos y gamebox
-- Movimiento de objetos
-- Movimiento de vehiculo por parte de usuario sin distinción de mayúsculas o minúsculas
+- Different classes (mainCar, enemyCar, hippies, mainstreamers, beerBooster)
+- Play/pause audio
+- Collision against people, vehicles and gamebox
+- Movement of objects
+- Vehicle movement by the user without distinction of upper or lower case letters
 
 
 # Backlog Functionalities
 
-- Aumento de puntos durante el modo borracho
-- Booster de arma temporal para el mainCar
-- Modificación en la funcionalidad de los controles durante el modo borracho
-- Nuevas pantallas de juego con diferente background
-- Implementación para movil
+
+- points multiplier during drunk mode
+- Temporary weapon booster for the mainCar
+- Changed controls functionality during drunk mode
+- New game screens with different backgrounds
+- Mobile implementation
 
 # Technologies used
 
