@@ -446,7 +446,7 @@ pauseAudioNode.addEventListener("click", () => {
 
 //Crear la clase del coche CHECK!
 //Crear la clase de los mainstreamers CHECK!
-//Crear la clase de los perroflautas
+//Crear la clase de los perroflautas CHECK!
 //Crear la clase del coche rival CHECK!
 
 //los mainstream y hippies aparecen de manera random
