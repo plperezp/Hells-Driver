@@ -14,7 +14,7 @@ Conduce como un maníaco: Toma el control de tu vehiculo y corre a través de la
 Modo borracho: ¿Te crees valiente? Toma un trago y ve cómo tu habilidad se distorsiona. Conducir borracho no es fácil, pero los puntos valen el riesgo.
 
 Sin reglas, solo caos: No hay límites. Estrellarte contra peatones es parte del juego. La única regla es causar el máximo caos sin perder tu vida.
-¡Prepárate para una adrenalina sin fin! En *Hell's Driver*, la carretera es tu campo de batalla. ¡Aplasta, destruye y ríe mientras lo haces!
+¡Prepárate para una adrenalina sin fin! En *Hell's Driver*, la carretera es tu campo de batalla. ¡Aplasta, destruye y ríe mientras lo haces!.
 
 # Main Functionalities
 
@@ -22,6 +22,7 @@ Sin reglas, solo caos: No hay límites. Estrellarte contra peatones es parte del
 - Reproduce /pausa audio
 - Colisión contra personas, vehiculos y gamebox
 - Movimiento de objetos
+- Movimiento de vehiculo por parte de usuario sin distinción de mayúsculas o minúsculas
 
 
 # Backlog Functionalities
@@ -30,6 +31,7 @@ Sin reglas, solo caos: No hay límites. Estrellarte contra peatones es parte del
 - Booster de arma temporal para el mainCar
 - Modificación en la funcionalidad de los controles durante el modo borracho
 - Nuevas pantallas de juego con diferente background
+- Implementación para movil
 
 # Technologies used
 
@@ -53,9 +55,12 @@ Sin reglas, solo caos: No hay límites. Estrellarte contra peatones es parte del
 
 ### Slides
 
+[Link](https://docs.google.com/presentation/d/1Z_JsoSdH7qpyCBI7FmYOHoyHht4gv7oYJFplqn6tScw/edit?usp=drive_link)
+
 ### Deploy
 
 [Link](https://plperezp.github.io/Hells-Driver/)
 
-
+# Special Thanks
  
+ - Thanks to Room-12 *“where the dreams come true”* because without them, this game doesn't have sense.
