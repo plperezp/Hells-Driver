@@ -18,11 +18,44 @@ Get ready for endless adrenaline! In *Hell's Driver*, the road is your battlefie
 
 # Main Functionalities
 
-- Different classes (mainCar, enemyCar, hippies, mainstreamers, beerBooster)
-- Play/pause audio
-- Collision against people, vehicles and gamebox
-- Movement of objects
-- Vehicle movement by the user without distinction of upper or lower case letters
+**Screen Transitions:**
+
+- Switch between the splash screen, game screen, and game over screen.
+- Start Game (startGame) and Restart Game (restartGame):
+
+- Initialize all game elements like the main car, enemies, obstacles, and score.
+- Reset the game entirely after losing, restoring variables and visual elements.
+
+**Main Car Movement:**
+
+- Control the main car using the W, A, S, D keys to move in four directions.
+- Enemy and Obstacle Generation:
+
+- Automatically and periodically generate enemy cars, humans (mainstreamers and hippies), and beer boosters.
+
+**Collision Detection:**
+
+- Detect collisions between the main car and enemies, obstacles, walls, or boosters, and handle the effects (game over, score increase, or boosters).
+
+**Game Loop:**
+
+- Continuously update the game state, including movements, collision detection, and removing off-screen elements.
+
+**Score System:**
+
+- Track the player's score during the game, display it in real-time, and save top scores to localStorage.
+
+**Sound Effects:**
+
+- Play different sounds for game actions like car crashes, human collisions, collecting boosters, and the game over event.
+
+**Game Over Sequence:**
+
+- Handle the game over condition when the car crashes, stop the game loop, show the final score, and transition to the game over screen.
+
+**Music Controls:**
+
+- Buttons to play and pause the background game music.
 
 
 # Backlog Functionalities
