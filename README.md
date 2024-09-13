@@ -98,3 +98,4 @@ Get ready for endless adrenaline! In *Hell's Driver*, the road is your battlefie
 # Special Thanks
  
  - Thanks to Room-12 *“where the dreams come true”* because without them, this game doesn't have sense.
+ - to Enrique's Smooth algorithm, because without him the car wouldn't run fluid
