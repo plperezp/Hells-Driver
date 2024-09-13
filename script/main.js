@@ -103,10 +103,10 @@ function saveAndshowScores() {
   puntuaciones.unshift(score);
   console.log(puntuaciones);
 
-  // sort
+  
 
   puntuaciones.sort((a, b) => {
-    b.score - a.score;
+    b.score - a.score
   });
 
   let mejoresScores = puntuaciones.slice(0, 5);
@@ -215,7 +215,6 @@ function detectCarCrashEnemyCar() {
         gameOver();
       }, 300);
     }
-    // Collision detected!
   });
 }
 function detectCarCrashMainstream() {

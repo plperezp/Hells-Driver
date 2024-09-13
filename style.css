@@ -37,7 +37,6 @@ h2 {
 }
 
 #controles{
-  border-color: white;
   float:left; 
   box-sizing: border-box;
   width: 400px;
@@ -61,7 +60,6 @@ h2 {
 
 #game-rules {
   color: white;
-  border-color: white;
   float:left; 
   box-sizing: border-box;
   width: 400px;
@@ -88,7 +86,6 @@ h2 {
 #game-info{
   
   box-sizing: border-box;
-  border-color: white;
   float:left; 
   width: 400px;
   height: 300px;

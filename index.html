@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Hell's driver</title>
-    <link rel="icon" type="image/x-icon" href="./img/favicon.png">
+    <link rel="icon" type="image/x-icon" href="./img/favicon.png" />
     <link rel="stylesheet" href="./style.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -12,77 +12,94 @@
       href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap"
       rel="stylesheet"
     />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
     <!-- PANTALLA DE INICIO-->
     <div id="splash-screen" class="container">
-      <img src="./img/HellDriverScreen.jpg" width="700px" alt="hellDriverLogo"/>
+      <img
+        src="./img/HellDriverScreen.jpg"
+        width="700px"
+        alt="hellDriverLogo"
+      />
       <br />
       <div id="columnas">
-      <div id="game-info" class ="inicio">
-        <h2>Instrucciones</h2>
-        <p>
-          Have you ever dreamed of angrily running over all those reckless people who prefer to cross the street without using a pedestrian crossing ? THIS IS YOUR GAME.
-        </p>
-      </div>
-      <div id="game-rules"class ="inicio">
-        <h2>Reglas</h2>
+        <div id="game-info" class="inicio">
+          <h2>Instrucciones</h2>
+          <p>
+            Have you ever dreamed of angrily running over all those reckless
+            people who prefer to cross the street without using a pedestrian
+            crossing ? THIS IS YOUR GAME.
+          </p>
+        </div>
+        <div id="game-rules" class="inicio">
+          <h2>Reglas</h2>
 
-        <ul>
-          <li>
-            Runs over all pedestrians who decide to cross the road and accumulate points
-          </li>
-          <li>
-            Carefoul with the beers 🍺, can afect to your driver experience
-          </li>
-          <li>If you crash into another car or the wall... YOU DIE☠️</li>
-  
-        </ul>
+          <ul>
+            <li>
+              Runs over all pedestrians who decide to cross the road and
+              accumulate points
+            </li>
+            <li>
+              Carefoul with the beers 🍺, can afect to your driver experience
+            </li>
+            <li>If you crash into another car or the wall... YOU DIE☠️</li>
+          </ul>
+        </div>
+        <div id="controles" class="inicio">
+          <h2>Controles</h2>
+
+          <img src="img/controles.png" alt="controles" width="150px" />
+        </div>
       </div>
-      <div id ="controles" class ="inicio">
-      <h2>Controles</h2>
-        
-      <img src ="img/controles.png" alt = "controles" width = "150px">
-      </div>
-     </div> 
       <button id="start-game-btn">Let's go driver</button>
     </div>
 
     <!--PANTALLA DE JUEGO-->
     <div id="game-screen" class="container">
+      <div id="score">Score: 0</div>
 
-      
-      <div id="score">Score: 0 </div>
+      <img
+        src="./img/audiobtn.png"
+        id="audio-btn"
+        alt="audio-btn"
+        width="30px"
+      />
+      <img
+        src="./img/audiomuted.png"
+        id="pause-audio-btn"
+        alt="pause-audio-btn"
+        width="30px"
+      />
 
-      <img src="./img/audiobtn.png"id="audio-btn" alt ="audio-btn" width="30px">
-      <img src="./img/audiomuted.png"id="pause-audio-btn" alt ="pause-audio-btn" width="30px">
-      
-      
       <div id="game-box"></div>
-    
     </div>
 
     <!--PANTALLA FINAL-->
-   
+
     <div id="game-over-screen" class="container">
-      
-      <img src="./img/game-over.gif" width =500px alt="gameOver" id="gif-gameover"/>
-      
+      <img
+        src="./img/game-over.gif"
+        width="500px"
+        alt="gameOver"
+        id="gif-gameover"
+      />
+
       <br />
 
       <div id="final-score">Conductor, tu puntuación final es :0</div>
       <div>
         <h2>BEST DRIVERS</h2>
-        <ul id="scoreList">
-
-        </ul>
+        <ul id="scoreList"></ul>
       </div>
       <button id="restart-game-btn">Restart game!</button>
     </div>
-    
+
     <script src="script/maincar.js"></script>
     <script src="script/enemyCar.js"></script>
     <script src="script/mainstreamers.js"></script>
